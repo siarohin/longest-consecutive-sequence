@@ -1,22 +1,18 @@
 module.exports = function longestConsecutiveLength(array) {
 
-	let consecutiveRight = {};
+	let consecutiveRight = {},
+        max = 0;
 
-	let max = 0;
     for (let i = 0; i < array.length; i++) {
 
-        let current = array[i];
-        if (consecutiveRight[current] !== undefined) {
-            continue;
+        consecutiveRight[array[i]] = 1 + (consecutiveRight[array[i] + 1] || 0);
+        
+        while (consecutiveRight[array[i] - 1] !== undefined) {
+            consecutiveRight[array[i] - 1] = consecutiveRight[array[i]] + 1;
+            array[i]--;
         }
 
-        consecutiveRight[current] = 1 + (consecutiveRight[current + 1] || 0);
-        while (consecutiveRight[current - 1] !== undefined) {
-            consecutiveRight[current - 1] = consecutiveRight[current] + 1;
-            current--;
-        }
-
-        max = Math.max(max, consecutiveRight[current]);
+        max = Math.max(max, consecutiveRight[array[i]]);
     }
 
     return max;
