@@ -1,6 +1,6 @@
 module.exports = function longestConsecutiveLength(array) {
 
-	const consecutiveRight = {};
+	let consecutiveRight = {};
 
 	let max = 0;
     for (let i = 0; i < array.length; i++) {
